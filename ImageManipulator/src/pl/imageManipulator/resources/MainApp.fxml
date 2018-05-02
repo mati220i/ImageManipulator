@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.input.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.imageManipulator.controller.MainAppController">
+   <children>
+      <VBox prefHeight="900.0" prefWidth="1200.0">
+         <children>
+            <MenuBar prefWidth="1200.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Plik">
+                  <items>
+                        <MenuItem fx:id="open" onAction="#open" text="Otwórz">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                    <MenuItem fx:id="save" onAction="#save" text="Zapisz">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="saveAs" onAction="#saveAs" text="Zapisz jako ...">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="exit" onAction="#exit" text="Zamknij">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edycja">
+                  <items>
+                    <MenuItem fx:id="undo" onAction="#undo" text="Cofnij">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem fx:id="redo" onAction="#redo" text="Ponów">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="Y" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="copySource" mnemonicParsing="false" onAction="#copySource" text="Kopiuj źródłowy" />
+                        <MenuItem fx:id="copyEdited" onAction="#copyEdited" text="Kopiuj po edycji">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <RadioMenuItem fx:id="wandMenu" onAction="#wand" text="Różdżka wł / wył">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </RadioMenuItem>
+                        <MenuItem fx:id="deleteImages" onAction="#deleteImages" text="Usuń obrazy">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Filtry">
+                     <items>
+                        <RadioMenuItem fx:id="averageFilter" mnemonicParsing="false" onAction="#selectAverage" text="Uśredniający" />
+                        <RadioMenuItem fx:id="hp3Filter" mnemonicParsing="false" onAction="#selectHP3" text="HP3" />
+                        <RadioMenuItem fx:id="verticalSobelFilter" mnemonicParsing="false" onAction="#selectVerticalSobel" text="Poziomy Sobela" />
+                        <RadioMenuItem fx:id="grayScale" mnemonicParsing="false" onAction="#selectGrayScale" text="Odcienie szarości" />
+                        <RadioMenuItem fx:id="userFilter" mnemonicParsing="false" onAction="#selectUserFilter" text="Użytkownika" />
+                        <RadioMenuItem fx:id="randomFilter" mnemonicParsing="false" onAction="#selectRandom" text="Losowy" />
+                     </items>
+                  </Menu>
+                <Menu mnemonicParsing="false" text="Pomoc">
+                  <items>
+                        <MenuItem fx:id="help" onAction="#help" text="Pomoc">
+                           <accelerator>
+                              <KeyCodeCombination alt="ANY" code="F1" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                    <MenuItem fx:id="about" mnemonicParsing="false" onAction="#about" text="O programie" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <ToolBar prefHeight="40.0">
+              <items>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#open" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../src/pl/imageManipulator/resources/images/open.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="saveImg" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#save" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../src/pl/imageManipulator/resources/images/save.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="saveAsImg" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#saveAs" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../src/pl/imageManipulator/resources/images/saveAs.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../src/pl/imageManipulator/resources/images/exit.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="undoImg" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#undo" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../src/pl/imageManipulator/resources/images/undo.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="redoImg" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#redo" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../src/pl/imageManipulator/resources/images/redo.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="copyEditedImg" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#copyEdited" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../src/pl/imageManipulator/resources/images/copy.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="wandImg" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#wand" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../src/pl/imageManipulator/resources/images/wand.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="deleteImagesImg" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#deleteImages" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../src/pl/imageManipulator/resources/images/delete.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#help" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../src/pl/imageManipulator/resources/images/help.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" onMouseClicked="#about" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../src/pl/imageManipulator/resources/images/about.png" />
+                     </image>
+                  </ImageView>
+              </items>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </ToolBar>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="500.0">
+               <children>
+                  <Label text="Źródłowy" textFill="#1f5fbf">
+                     <font>
+                        <Font name="System Bold Italic" size="30.0" />
+                     </font>
+                  </Label>
+                  <Label text="Wynikowy" textFill="#1f5fbf">
+                     <font>
+                        <Font name="System Bold Italic" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="580.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="source" fitHeight="580.0" fitWidth="580.0" pickOnBounds="true" preserveRatio="true" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="10.0" />
+                  <ImageView fx:id="edited" fitHeight="580.0" fitWidth="580.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefWidth="1200.0" spacing="20.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="500.0" spacing="20.0">
+                     <children>
+                        <Label text="Algorytm" textFill="#a423e0">
+                           <font>
+                              <Font name="Calibri Bold Italic" size="30.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="algorithm" onAction="#setAlgorithm" prefWidth="350.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="450.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" spacing="20.0">
+                           <children>
+                              <Label text="Różdżka" textFill="#a423e0">
+                                 <font>
+                                    <Font name="System Bold Italic" size="30.0" />
+                                 </font>
+                              </Label>
+                              <CheckBox fx:id="wand" mnemonicParsing="false" onMousePressed="#wand" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                           <children>
+                              <Label text="Moc" textFill="#a423e0">
+                                 <font>
+                                    <Font name="System Bold Italic" size="30.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fx:id="plusImg" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#minus" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../src/pl/imageManipulator/resources/images/minus.png" />
+                                 </image>
+                              </ImageView>
+                              <ComboBox fx:id="wandPower" onAction="#setWandPower" prefWidth="150.0" />
+                              <ImageView fx:id="minusImg" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#plus" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../src/pl/imageManipulator/resources/images/plus.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <Button fx:id="processButton" mnemonicParsing="false" onAction="#process" text="Przetwórz" textFill="#a423e0">
+                     <font>
+                        <Font name="System Bold Italic" size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children></VBox>
+   </children>
+</AnchorPane>

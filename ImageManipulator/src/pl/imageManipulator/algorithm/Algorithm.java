@@ -23,6 +23,11 @@ public class Algorithm {
 	
 	
 	//--------------------- Constructors--------------------------
+	public Algorithm() {
+		this.mask = new Mask().getMask(Type.RANDOM);
+		this.wand = new Wand();
+	}
+	
 	public Algorithm(BufferedImage image) {
 		this.image = image;
 		this.newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
@@ -91,11 +96,11 @@ public class Algorithm {
 	}
 	
 	public void increaseWandPower() {
-		this.wand.decreasePower();
+		this.wand.increasePower();
 	}
 	
 	public void decreaseWandPower() {
-		this.decreaseWandPower();
+		this.wand.decreasePower();
 	}
 	
 	public void setWandPower(int power) throws Exception {
@@ -353,6 +358,10 @@ public class Algorithm {
 		image.setData(raster);
         
 		return image;
+	}
+	
+	public int getWandPower() {
+		return this.wand.getPower();
 	}
 	
 }

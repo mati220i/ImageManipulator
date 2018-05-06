@@ -177,7 +177,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="580.0" prefWidth="200.0">
                <children>
-                  <ImageView fx:id="source" fitHeight="580.0" fitWidth="580.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="source" fitHeight="580.0" fitWidth="580.0" onMouseClicked="#getMousePosition" pickOnBounds="true" preserveRatio="true" />
                   <Separator orientation="VERTICAL" prefHeight="200.0" prefWidth="10.0" />
                   <ImageView fx:id="edited" fitHeight="580.0" fitWidth="580.0" pickOnBounds="true" preserveRatio="true" />
                </children>

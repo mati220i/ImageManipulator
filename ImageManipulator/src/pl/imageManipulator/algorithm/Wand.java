@@ -6,16 +6,20 @@ public class Wand {
 	private int x, y;
 	
 	public Wand() {
-		this.power = 100;
+		this.power = 150;
 		this.isActive = false;
 	}
 	
 	public void increasePower() {
+		if((this.power + 5) > 255)
+			this.power = 255;
 		if(this.power < 255)
 			this.power += 5;
 	}
 	
 	public void decreasePower() {
+		if((this.power - 5) < 0)
+			this.power = 0;
 		if(this.power > 0)
 			this.power -= 5;
 	}

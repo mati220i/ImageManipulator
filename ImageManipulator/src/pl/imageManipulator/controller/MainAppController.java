@@ -13,7 +13,11 @@ import javax.imageio.ImageIO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -26,10 +30,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import pl.imageManipulator.algorithm.Algorithm;
+import pl.imageManipulator.algorithm.Mask;
 import pl.imageManipulator.algorithm.Type;
 
 public class MainAppController {
@@ -54,11 +61,15 @@ public class MainAppController {
 	private String imagePath;
 
 	private HashMap<Integer, Image> steps = new HashMap<>();
-
 	private Integer currentStep = 0;
+	
+	private Algorithm alg;
+	private int[] userMask;
 
 	@FXML
 	public void initialize() {
+		alg = new Algorithm();
+		
 		algorithm.getItems().addAll(getAlgorithmList());
 		algorithm.getSelectionModel().select(1);
 
@@ -383,8 +394,25 @@ public class MainAppController {
 	}
 
 	@FXML
-	public void selectUserFilter() {
+	public void selectUserFilter() throws IOException {
 		algorithm.getSelectionModel().select(4);
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/pl/imageManipulator/resources/UserMaskPanel.fxml"));
+		AnchorPane pane = loader.load();
+
+		Image icon = new Image("/pl/imageManipulator/resources/images/appIcon.png");
+		
+		Stage stage = new Stage();
+		stage.setTitle("Image Manipulator");
+		stage.setScene(new Scene(pane));
+		stage.getIcons().add(icon);
+		stage.setAlwaysOnTop(true);
+		stage.show();
+		stage.setResizable(false);
+		
+		UserMaskPanelController controller = loader.getController();
+		controller.setStage(stage);
+		controller.setMainController(this);
 	}
 
 	@FXML
@@ -414,7 +442,7 @@ public class MainAppController {
 	}
 
 	@FXML
-	public void setAlgorithm() {
+	public void setAlgorithm() throws IOException {
 		deselectFilterMenuItem();
 		
 		switch (algorithm.getSelectionModel().getSelectedIndex()) {
@@ -432,6 +460,7 @@ public class MainAppController {
 			break;
 		case 4:
 			userFilter.setSelected(true);
+			selectUserFilter();
 			break;
 		case 5:
 			randomFilter.setSelected(true);
@@ -453,46 +482,73 @@ public class MainAppController {
 
 	@FXML
 	public void minus() {
-
+		this.alg.decreaseWandPower();
+		String power = String.valueOf(alg.getWandPower());
+		this.wandPower.setValue(power);
 	}
 
 	@FXML
-	public void setWandPower() {
-
+	public void setWandPower() throws Exception {
+		int power = Integer.valueOf(wandPower.getSelectionModel().getSelectedItem());
+		this.alg.setWandPower(power);
 	}
 
 	@FXML
 	public void plus() {
+		this.alg.increaseWandPower();
+		String power = String.valueOf(alg.getWandPower());
+		this.wandPower.setValue(power);
+	}
+	
+	@FXML
+	private void getMousePosition() {
+		double[] pos = new double[2];
+		
+		source.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
+			@Override
+			public void handle(MouseEvent event) {
+				pos[0] = event.getX();
+            	pos[1] = event.getY();
+            	
+			}
+
+			
+		});
+		
+		;
+		// TODO nie dziala
+		//source.setPickOnBounds(true);
+		//String text = String.valueOf(this.source.getX());
+		//text += " " + String.valueOf(this.source.getY());
+		processButton.setText(pos[0] + " i " + pos[1]);
 	}
 
 	@FXML
 	public void process() throws Exception {
 		BufferedImage img = ImageIO.read(new File(imagePath));
-
-		Algorithm algorithm = new Algorithm(img);
-
+		
 		// TODO dodac obsluge rozdzki
 		switch (this.algorithm.getSelectionModel().getSelectedIndex()) {
 		case 0:
-			img = algorithm.filter(Type.AVERAGING);
+			img = alg.filter(img, Type.AVERAGING);
 			break;
 		case 1:
-			img = algorithm.filter(Type.HP3);
+			img = alg.filter(img, Type.HP3);
 			break;
 		case 2:
-			img = algorithm.filter(Type.VERTICAL_SOBEL);
+			img = alg.filter(img, Type.VERTICAL_SOBEL);
 			break;
 		case 3:
-			img = algorithm.shadesOfGray(img);
+			img = alg.shadesOfGray(img);
 			break;
 		case 4:
 			int[] mask = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
-			algorithm.setUserMask(mask);
-			img = algorithm.filter(Type.USER);
+			alg.setUserMask(mask);
+			img = alg.filter(img, Type.USER);
 			break;
 		case 5:
-			img = algorithm.filter(Type.RANDOM);
+			img = alg.filter(img, Type.RANDOM);
 			break;
 		default:
 			break;
@@ -502,8 +558,6 @@ public class MainAppController {
 
 		steps.put(getNextStepId(), edited.getImage());
 
-		System.out.println(steps);
-	
 		undo.setDisable(false);
 		undoImg.setVisible(true);
 		redo.setDisable(true);
@@ -540,6 +594,10 @@ public class MainAppController {
 
 	public void setStage(Stage stage) {
 		this.stage = stage;
+	}
+
+	public void setUserMask(int[] userMask) {
+		this.userMask = userMask;
 	}
 
 }

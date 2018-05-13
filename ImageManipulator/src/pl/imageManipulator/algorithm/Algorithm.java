@@ -183,8 +183,6 @@ public class Algorithm {
 		
 		for(int i=margin; i<width-margin; i++){
 			for(int j=margin; j<height-margin; j++){
-				System.out.println("x: " + i + " y: " + j);
-				
 				int sum = 0;
 				
 				int wandPixels[] = new int[3];
@@ -253,8 +251,6 @@ public class Algorithm {
 		
 		for(int i=margin; i<width-margin; i++){
 			for(int j=margin; j<height-margin; j++){
-				System.out.println("x: " + i + " y: " + j);
-				
 				int sumR = 0;
 				int sumG = 0;
 				int sumB = 0;
@@ -342,10 +338,8 @@ public class Algorithm {
 		int h = raster.getHeight();
 		int w = raster.getWidth();
 		
-		System.out.println("obrazek " + raster);
 		for(int i=0; i<w; i++){
 			for(int j=0; j<h; j++){
-	            System.out.println("x: " + i + " y: " + j);
 	            raster.getPixel(i, j, pixels);
 	            
 	            shades[0] = 0.299 * pixels[0] + 0.587 * pixels[1] + 0.114 * pixels[2];

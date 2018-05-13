@@ -59,7 +59,7 @@
                            </accelerator>
                         </MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <RadioMenuItem fx:id="wandMenu" onAction="#wand" text="Różdżka wł / wył">
+                        <RadioMenuItem fx:id="wandMenu" onAction="#wand2" text="Różdżka wł / wył">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
@@ -130,7 +130,7 @@
                         <Image url="@../../../../src/pl/imageManipulator/resources/images/copy.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="wandImg" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#wand" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="wandImg" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#wand2" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../src/pl/imageManipulator/resources/images/wand.png" />
                      </image>
@@ -194,7 +194,7 @@
                         <ComboBox fx:id="algorithm" onAction="#setAlgorithm" prefWidth="350.0" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="450.0">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="450.0">
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" spacing="20.0">
                            <children>
@@ -203,9 +203,14 @@
                                     <Font name="System Bold Italic" size="30.0" />
                                  </font>
                               </Label>
-                              <CheckBox fx:id="wand" mnemonicParsing="false" onMousePressed="#wand" />
+                              <CheckBox fx:id="wand" mnemonicParsing="false" onAction="#wand" />
                            </children>
                         </HBox>
+                        <Label fx:id="wandPoint" text="Wybrany punkt: " textFill="#a423e0">
+                           <font>
+                              <Font name="System Bold Italic" size="30.0" />
+                           </font>
+                        </Label>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                            <children>
                               <Label text="Moc" textFill="#a423e0">

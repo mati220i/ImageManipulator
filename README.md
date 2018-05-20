@@ -4,7 +4,6 @@
 ## Dostępnych jest kilka predefiniowanych filtrów, możliwość dodawania własnego, włączanie / wyłączenie różdżki, zmiana jej mocy.
 
 ![My image](ImageManipulator/screens/mainPL.jpg)
-<Enter>
 *Aplikacja przed załadowaniem obrazka*
 
 ![My image](ImageManipulator/screens/main2PL.jpg)
@@ -20,6 +19,7 @@
 *Wysuwane menu edycja*
 
 ![My image](ImageManipulator/screens/filtersPL.jpg)
+<Enter>
 *Wysuwane menu filtry*
 
 ![My image](ImageManipulator/screens/languagesPL.jpg)

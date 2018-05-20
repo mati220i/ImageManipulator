@@ -3,6 +3,11 @@ package pl.imageManipulator.algorithm;
 
 import java.util.Random;
 
+/**
+ * 
+ * @author Mateusz Œliwa <mateuszsliwa7@wp.pl>
+ *
+ */
 public class Mask {
 	// Predefined mask
 	private int[] averageFilter = {
@@ -40,6 +45,10 @@ public class Mask {
 			1, 1, 1, 1, 1
 		};
         
+	/**
+	 * Generate random mask
+	 * @return random mask
+	 */
 	private int[] getRandomMask() {
 		Random rand = new Random();
 		final int maskSize = 5;
@@ -53,6 +62,10 @@ public class Mask {
 		return randomMask;
 	}
 	
+	/**
+	 * Sets the user mask
+	 * @param data
+	 */
 	public void setUserMask(int[] data) {
 		final int maskSize = 5;
         int[] mask = new int[maskSize * maskSize];
@@ -62,6 +75,11 @@ public class Mask {
 		}
 	}
 	
+	/**
+	 * Gets mask
+	 * @param type 
+	 * @return int[] mask values
+	 */
 	public int[] getMask(Type type) {
 		if(type == Type.AVERAGING)
 			return this.averageFilter;

@@ -1,5 +1,10 @@
 package pl.imageManipulator.algorithm;
 
+/**
+ * Wand which can be used in app
+ * @author Mateusz Œliwa <mateuszsliwa7@wp.pl>
+ *
+ */
 public class Wand {
 	private boolean isActive;
 	private int power;
@@ -10,6 +15,9 @@ public class Wand {
 		this.isActive = false;
 	}
 	
+	/**
+	 * Increase power by 5
+	 */
 	public void increasePower() {
 		if((this.power + 5) > 255)
 			this.power = 255;
@@ -17,6 +25,9 @@ public class Wand {
 			this.power += 5;
 	}
 	
+	/**
+	 * Decrease power by 5
+	 */
 	public void decreasePower() {
 		if((this.power - 5) < 0)
 			this.power = 0;

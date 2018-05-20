@@ -8,8 +8,16 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
+ * Algorithm for image processing
  * 
- * @author Mateusz Œliwa
+ * A simple image processing tool. There are several predefined filters to choose from, a wand with adjustable power, 
+ * an algorithm for changing to shades of gray. 
+ * The algorithm has user-friendly methods and several constructors to choose from.
+ * 
+ * Use:
+ * Eg. alg.filter(img, Type.AVERAGING);
+ * 
+ * @author Mateusz Œliwa <mateuszsliwa7@wp.pl>
  *
  */
 public class Algorithm {
@@ -23,11 +31,19 @@ public class Algorithm {
 	
 	
 	//--------------------- Constructors--------------------------
+	
+	/**
+	 * Default constructor
+	 */
 	public Algorithm() {
 		this.mask = new Mask().getMask(Type.RANDOM);
 		this.wand = new Wand();
 	}
 	
+	/**
+	 * 
+	 * @param image initial image
+	 */
 	public Algorithm(BufferedImage image) {
 		this.image = image;
 		this.newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
@@ -35,6 +51,11 @@ public class Algorithm {
 		this.wand = new Wand();
 	}
 	
+	/**
+	 * 
+	 * @param image initial image
+	 * @param mask initial mask
+	 */
 	public Algorithm(BufferedImage image, Type mask) {
 		this.image = image;
 		this.newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
@@ -42,6 +63,11 @@ public class Algorithm {
 		this.wand = new Wand();
 	}
 	
+	/**
+	 * 
+	 * @param path image path
+	 * @throws IOException
+	 */
 	public Algorithm(String path) throws IOException {
 		File file = new File(path);
 		
@@ -51,6 +77,12 @@ public class Algorithm {
 		this.wand = new Wand();
 	}
 	
+	/**
+	 * 
+	 * @param path image path
+	 * @param mask initial mask
+	 * @throws IOException
+	 */
 	public Algorithm(String path, Type mask) throws IOException {
 		File file = new File(path);
 		
@@ -62,19 +94,37 @@ public class Algorithm {
 	
 	//-----------------------------------------------------------------------------
 	
+	/**
+	 * Load the image into algorithm
+	 * @param image
+	 */
 	public void chooseImage(BufferedImage image) {
 		this.image = image;
 	}
 	
+	/**
+	 * Load the image into algorithm
+	 * @param path image path
+	 * @throws IOException
+	 */
 	public void chooseImage(String path) throws IOException {
 		File file = new File(path);
 		this.image = ImageIO.read(file);
 	}
 	
+	/**
+	 * Chooses mask
+	 * @param mask
+	 */
 	public void chooseMask(Type mask) {
 		this.mask = new Mask().getMask(mask);
 	}
 	
+	/**
+	 * Sets mask from int[] varieble
+	 * @param mask
+	 * @throws Exception
+	 */
 	public void setUserMask(int[] mask) throws Exception {
 		if(mask.length != 25)
 			throw new Exception("The mask is not compatible with the mask length of 5x5 (size = 25)");
@@ -82,27 +132,51 @@ public class Algorithm {
 			this.mask = mask;
 	}
 	
+	/**
+	 * Turns on the mask
+	 */
 	public void turnOnWand() {
 		this.wand.setActive(true);
 	}
 	
+	/**
+	 * Turns off the mask
+	 */
 	public void turnOffWand() {
 		this.wand.setActive(false);
 	}
 	
+	/**
+	 * Sets the wand position
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void setWandPosition(int x, int y) {
 		this.wand.setX(x);
 		this.wand.setY(y);
 	}
 	
+	/**
+	 * Increase wand power by 5
+	 */
 	public void increaseWandPower() {
 		this.wand.increasePower();
 	}
 	
+	/**
+	 * Decrease wand power by 5
+	 */
 	public void decreaseWandPower() {
 		this.wand.decreasePower();
 	}
 	
+	/**
+	 * Sets wand power
+	 * 
+	 * @param power
+	 * @throws Exception
+	 */
 	public void setWandPower(int power) throws Exception {
 		if(power >= 0 && power <=255)
 			this.wand.setPower(power);
@@ -110,11 +184,21 @@ public class Algorithm {
 			throw new Exception("The set wand power is less than 0 or greater than 255. Range <0, 255>");
 	}
 		
+	/**
+	 * Gets the image after filtration
+	 * 
+	 * @return image after filtratiin
+	 */
 	public BufferedImage getImageAfterFiltration() {
 		return newImage;
 	}
 	
-	// A simple function to check if the image is colored
+	/**
+	 * A simple function to check if the image is colored
+	 * 
+	 * @param image
+	 * @return true if image is colored
+	 */
 	boolean isColored(BufferedImage image) {
 		WritableRaster raster = image.getRaster();
 		int[] pixels = new int[3];
@@ -127,19 +211,30 @@ public class Algorithm {
 			return false;
 	}
 
-	// Filters the image that has been loaded into the class
+	/**
+	 * Filters the image that has been loaded into the class
+	 * @return image after filtration
+	 */
 	public BufferedImage filter() {
 		this.newImage = filtrationAlgorithm(this.image);
 		return this.newImage;		
 	}
 	
-	// Filters the image that was given in the argument
+	/**
+	 * Filters the image that was given in the argument
+	 * @param image
+	 * @return image after filtration
+	 */
 	public BufferedImage filter(BufferedImage image) {
 		this.newImage = filtrationAlgorithm(image);
 		return this.newImage;
 	}
 	
-	// Filters an image that has been loaded into the class with the chosen filtering method
+	/**
+	 * Filters an image that has been loaded into the class with the chosen filtering method
+	 * @param mask
+	 * @return image after filtration
+	 */
 	public BufferedImage filter(Type mask) {
 		this.mask = new Mask().getMask(mask);
 		
@@ -147,7 +242,12 @@ public class Algorithm {
 		return this.newImage;		
 	}
 	
-	// Filters the image that was given in the argument selected by the filtering method
+	/**
+	 * Filters the image that was given in the argument selected by the filtering method
+	 * @param image
+	 * @param mask
+	 * @return image after filtration
+	 */
 	public BufferedImage filter(BufferedImage image, Type mask) {
 		this.mask = new Mask().getMask(mask);
 		
@@ -155,7 +255,11 @@ public class Algorithm {
 		return this.newImage;
 	}
 	
-	// Function that checks whether the image is in shades of gray and transmits it to the appropriate filtering function
+	/**
+	 * Function that checks whether the image is in shades of gray and transmits it to the appropriate filtering function
+	 * @param image
+	 * @return image after filtration
+	 */
 	private BufferedImage filtrationAlgorithm(BufferedImage image) {
 		if(this.isColored(image)){
 			return this.filtrationAlgorithmColor(image);
@@ -164,7 +268,11 @@ public class Algorithm {
 			return this.filtrationAlgorithmGrayScale(image);
 	}
 	
-	// An algorithm that filters images in shades of gray
+	/**
+	 * An algorithm that filters images in shades of gray
+	 * @param image
+	 * @return image after filtration
+	 */
 	private BufferedImage filtrationAlgorithmGrayScale(BufferedImage image) {
 		BufferedImage afterEditing = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
 		WritableRaster raster = image.getRaster();
@@ -232,7 +340,11 @@ public class Algorithm {
 		return afterEditing;
 	}	
 	
-	// Algorithm for filtering colored images
+	/**
+	 * Algorithm for filtering colored images
+	 * @param image
+	 * @return image after filtration
+	 */
 	private BufferedImage filtrationAlgorithmColor(BufferedImage image) {
 		BufferedImage afterEditing = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
 		WritableRaster raster = image.getRaster();
@@ -328,7 +440,11 @@ public class Algorithm {
 		return afterEditing;
 	}
 	
-	// Converts a color image into an image in shades of gray
+	/**
+	 * Converts a color image into an image in shades of gray
+	 * @param image
+	 * @return image after filtration
+	 */
 	public BufferedImage shadesOfGray(BufferedImage image){
 		WritableRaster raster = image.getRaster();
 		

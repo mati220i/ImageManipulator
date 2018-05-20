@@ -14,6 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 
+/**
+ * Main application class for image processing 
+ * @author Mateusz Œliwa <mateuszsliwa7@wp.pl>
+ *
+ */
 public class Main extends Application {
 	private Stage primaryStage;
 	

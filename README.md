@@ -29,12 +29,12 @@
 *Wysuwane menu pomoc*
 
 ![My image](ImageManipulator/screens/statementPL.jpg)
-*Przykład zabezpieczenia aplikacji przed niepoprawnym użyciem*
+<Enter> *Przykład zabezpieczenia aplikacji przed niepoprawnym użyciem*
 
-#[EN]
-#Simple Image Manipulator 
+# [EN]
+# Simple Image Manipulator 
 
-##There are several pre-defined filters, the ability to add your own, turn on / off the wand, change its power.
+## There are several pre-defined filters, the ability to add your own, turn on / off the wand, change its power.
 
 ![My image](ImageManipulator/screens/mainEN.jpg)
 *App appearance after starting and loading the image*

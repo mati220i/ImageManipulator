@@ -3,7 +3,7 @@ Prosta aplikacja do przetwarzania obrazów
 
 Dostępnych jest kilka predefiniowanych filtrów, możliwość dodawania własnego, włączanie / wyłączenie różdżki, zmiana jej mocy.
 
-![My image](mati220i.github.com/ImageManipulator/screens/mainPL.jpg)
+![My image](ImageManipulator/screens/mainPL.jpg)
 
 
 [EN]

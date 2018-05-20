@@ -2,7 +2,7 @@
 # Prosta aplikacja do przetwarzania obrazów
 
 ## Dostępnych jest kilka predefiniowanych filtrów, możliwość dodawania własnego, włączanie / wyłączenie różdżki, zmiana jej mocy.
-<p align="center">
+
 ![My image](ImageManipulator/screens/mainPL.jpg)
 <br/>
 *Aplikacja przed załadowaniem obrazka*
@@ -38,7 +38,7 @@
 ![My image](ImageManipulator/screens/statementPL.jpg)
 <br/>
 *Przykład zabezpieczenia aplikacji przed niepoprawnym użyciem*
-</p
+
 # [EN]
 # Simple Image Manipulator 
 

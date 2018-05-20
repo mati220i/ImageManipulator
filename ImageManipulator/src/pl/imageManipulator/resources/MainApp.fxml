@@ -15,80 +15,86 @@
          <children>
             <MenuBar prefWidth="1200.0">
               <menus>
-                <Menu mnemonicParsing="false" text="Plik">
+                <Menu mnemonicParsing="false" text="%file">
                   <items>
-                        <MenuItem fx:id="open" onAction="#open" text="Otwórz">
+                        <MenuItem fx:id="open" onAction="#open" text="%open">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                    <MenuItem fx:id="save" onAction="#save" text="Zapisz">
+                    <MenuItem fx:id="save" onAction="#save" text="%save">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                        <MenuItem fx:id="saveAs" onAction="#saveAs" text="Zapisz jako ...">
+                        <MenuItem fx:id="saveAs" onAction="#saveAs" text="%saveAs">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="DOWN" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                        <MenuItem fx:id="exit" onAction="#exit" text="Zamknij">
+                        <MenuItem fx:id="exit" onAction="#exit" text="%close">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edycja">
+                <Menu mnemonicParsing="false" text="%edit">
                   <items>
-                    <MenuItem fx:id="undo" onAction="#undo" text="Cofnij">
+                    <MenuItem fx:id="undo" onAction="#undo" text="%undo">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                        <MenuItem fx:id="redo" onAction="#redo" text="Ponów">
+                        <MenuItem fx:id="redo" onAction="#redo" text="%redo">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="Y" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="copySource" mnemonicParsing="false" onAction="#copySource" text="Kopiuj źródłowy" />
-                        <MenuItem fx:id="copyEdited" onAction="#copyEdited" text="Kopiuj po edycji">
+                        <MenuItem fx:id="copySource" mnemonicParsing="false" onAction="#copySource" text="%copySrc" />
+                        <MenuItem fx:id="copyEdited" onAction="#copyEdited" text="%copyEdited">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="C" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
                         <SeparatorMenuItem mnemonicParsing="false" />
-                        <RadioMenuItem fx:id="wandMenu" onAction="#wand2" text="Różdżka wł / wył">
+                        <RadioMenuItem fx:id="wandMenu" onAction="#wand2" text="%wandOnOff">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </RadioMenuItem>
-                        <MenuItem fx:id="deleteImages" onAction="#deleteImages" text="Usuń obrazy">
+                        <MenuItem fx:id="deleteImages" onAction="#deleteImages" text="%deleteImages">
                            <accelerator>
                               <KeyCodeCombination alt="UP" code="D" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
                   </items>
                 </Menu>
-                  <Menu mnemonicParsing="false" text="Filtry">
+                  <Menu mnemonicParsing="false" text="%filters">
                      <items>
-                        <RadioMenuItem fx:id="averageFilter" mnemonicParsing="false" onAction="#selectAverage" text="Uśredniający" />
-                        <RadioMenuItem fx:id="hp3Filter" mnemonicParsing="false" onAction="#selectHP3" text="HP3" />
-                        <RadioMenuItem fx:id="verticalSobelFilter" mnemonicParsing="false" onAction="#selectVerticalSobel" text="Poziomy Sobela" />
-                        <RadioMenuItem fx:id="grayScale" mnemonicParsing="false" onAction="#selectGrayScale" text="Odcienie szarości" />
-                        <RadioMenuItem fx:id="userFilter" mnemonicParsing="false" onAction="#selectUserFilter" text="Użytkownika" />
-                        <RadioMenuItem fx:id="randomFilter" mnemonicParsing="false" onAction="#selectRandom" text="Losowy" />
+                        <RadioMenuItem fx:id="averageFilter" mnemonicParsing="false" onAction="#selectAverage" text="%averageFilter" />
+                        <RadioMenuItem fx:id="hp3Filter" mnemonicParsing="false" onAction="#selectHP3" text="%hp3Filter" />
+                        <RadioMenuItem fx:id="verticalSobelFilter" mnemonicParsing="false" onAction="#selectVerticalSobel" text="%verticalSobel" />
+                        <RadioMenuItem fx:id="grayScale" mnemonicParsing="false" onAction="#selectGrayScale" text="%grayScale" />
+                        <RadioMenuItem fx:id="userFilter" mnemonicParsing="false" onAction="#selectUserFilter" text="%userFilter" />
+                        <RadioMenuItem fx:id="randomFilter" mnemonicParsing="false" onAction="#selectRandom" text="%randomFilter" />
                      </items>
                   </Menu>
-                <Menu mnemonicParsing="false" text="Pomoc">
+                  <Menu mnemonicParsing="false" text="%language">
+                     <items>
+                        <RadioMenuItem fx:id="polish" mnemonicParsing="false" onAction="#selectPolish" text="%polish" />
+                        <RadioMenuItem fx:id="english" mnemonicParsing="false" onAction="#selectEnglish" text="%english" />
+                     </items>
+                  </Menu>
+                <Menu mnemonicParsing="false" text="%help">
                   <items>
-                        <MenuItem fx:id="help" onAction="#help" text="Pomoc">
+                        <MenuItem fx:id="help" onAction="#help" text="%help">
                            <accelerator>
                               <KeyCodeCombination alt="ANY" code="F1" control="UP" meta="UP" shift="UP" shortcut="UP" />
                            </accelerator>
                         </MenuItem>
-                    <MenuItem fx:id="about" mnemonicParsing="false" onAction="#about" text="O programie" />
+                    <MenuItem fx:id="about" mnemonicParsing="false" onAction="#about" text="%about" />
                   </items>
                 </Menu>
               </menus>
@@ -163,12 +169,12 @@
             </ToolBar>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="500.0">
                <children>
-                  <Label text="Źródłowy" textFill="#1f5fbf">
+                  <Label text="%source" textFill="#1f5fbf">
                      <font>
                         <Font name="System Bold Italic" size="30.0" />
                      </font>
                   </Label>
-                  <Label text="Wynikowy" textFill="#1f5fbf">
+                  <Label text="%resultant" textFill="#1f5fbf">
                      <font>
                         <Font name="System Bold Italic" size="30.0" />
                      </font>
@@ -186,7 +192,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="500.0" spacing="20.0">
                      <children>
-                        <Label text="Algorytm" textFill="#a423e0">
+                        <Label text="%algorithm" textFill="#a423e0">
                            <font>
                               <Font name="Calibri Bold Italic" size="30.0" />
                            </font>
@@ -198,7 +204,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" spacing="20.0">
                            <children>
-                              <Label text="Różdżka" textFill="#a423e0">
+                              <Label text="%wand" textFill="#a423e0">
                                  <font>
                                     <Font name="System Bold Italic" size="30.0" />
                                  </font>
@@ -206,14 +212,14 @@
                               <CheckBox fx:id="wand" mnemonicParsing="false" onAction="#wand" />
                            </children>
                         </HBox>
-                        <Label fx:id="wandPoint" text="Wybrany punkt: " textFill="#a423e0">
+                        <Label fx:id="wandPoint" text="%selectedPoint" textFill="#a423e0">
                            <font>
                               <Font name="System Bold Italic" size="30.0" />
                            </font>
                         </Label>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                            <children>
-                              <Label text="Moc" textFill="#a423e0">
+                              <Label text="%power" textFill="#a423e0">
                                  <font>
                                     <Font name="System Bold Italic" size="30.0" />
                                  </font>
@@ -233,7 +239,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <Button fx:id="processButton" mnemonicParsing="false" onAction="#process" text="Przetwórz" textFill="#a423e0">
+                  <Button fx:id="processButton" mnemonicParsing="false" onAction="#process" text="%process" textFill="#a423e0">
                      <font>
                         <Font name="System Bold Italic" size="24.0" />
                      </font>

@@ -11,7 +11,7 @@
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="330.0" prefWidth="400.0" spacing="20.0">
          <children>
-            <Label text="Wybierz maskę &lt;-15 15&gt;" textFill="#1f5fbf">
+            <Label text="%chooseMask" textFill="#1f5fbf">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font>
@@ -64,12 +64,12 @@
             </GridPane>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#confirm" text="Zatwierdź" textFill="#a423e0">
+                  <Button mnemonicParsing="false" onAction="#confirm" text="%confirm" textFill="#a423e0">
                      <font>
                         <Font name="System Bold Italic" size="20.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#reset" text="Resetuj" textFill="#a423e0">
+                  <Button mnemonicParsing="false" onAction="#reset" text="%reset" textFill="#a423e0">
                      <font>
                         <Font name="System Bold Italic" size="20.0" />
                      </font>

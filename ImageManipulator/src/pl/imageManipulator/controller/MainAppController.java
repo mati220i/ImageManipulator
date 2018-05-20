@@ -4,7 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -39,6 +41,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import pl.imageManipulator.algorithm.Algorithm;
 import pl.imageManipulator.algorithm.Type;
+import pl.imageManipulator.mainApp.Main;
 
 public class MainAppController {
 
@@ -53,7 +56,7 @@ public class MainAppController {
 	@FXML
 	private RadioMenuItem wandMenu;
 	@FXML
-	private RadioMenuItem averageFilter, hp3Filter, verticalSobelFilter, grayScale, userFilter, randomFilter;
+	private RadioMenuItem averageFilter, hp3Filter, verticalSobelFilter, grayScale, userFilter, randomFilter, polish, english;
 	@FXML
 	private ImageView saveImg, saveAsImg, undoImg, redoImg, copyEditedImg, wandImg, deleteImagesImg, plusImg, minusImg;
 	@FXML
@@ -70,14 +73,14 @@ public class MainAppController {
 
 	private Algorithm alg;
 	private int[] userMask;
+	
+	private Main main;
+	private Locale locale;
+	private ResourceBundle bundle;
 
 	@FXML
 	public void initialize() {
-		alg = new Algorithm();
-
-		algorithm.getItems().addAll(getAlgorithmList());
-		algorithm.getSelectionModel().select(1);
-
+		
 		wandPower.getItems().addAll(getWandPowerList());
 		wandPower.getSelectionModel().select(150);
 
@@ -115,10 +118,25 @@ public class MainAppController {
 		grayScale.setDisable(true);
 		userFilter.setDisable(true);
 		randomFilter.setDisable(true);
-
+		
+		
 		edited.setImage(null);
 	}
 
+	public void refresh() {
+		alg = new Algorithm();
+
+		algorithm.getItems().addAll(getAlgorithmList());
+		algorithm.getSelectionModel().select(1);
+
+		
+		if(locale.equals(new Locale("pl", "PL")))
+			polish.setSelected(true);
+		else
+			english.setSelected(true);
+		
+	}
+	
 	private void setMenuItemIcons() {
 		open.setGraphic(new ImageView("/pl/imageManipulator/resources/images/open.png"));
 		save.setGraphic(new ImageView("/pl/imageManipulator/resources/images/save.png"));
@@ -136,13 +154,13 @@ public class MainAppController {
 	private ObservableList<String> getAlgorithmList() {
 		ObservableList<String> list = FXCollections.observableArrayList();
 
-		list.add("Uœredniaj¹cy");
-		list.add("HP3");
-		list.add("Poziomy Sobela");
-		list.add("Odcienie Szaroœci");
-		list.add("U¿ytkownika");
-		list.add("Losowy");
-
+		list.add(bundle.getString("averageFilter"));
+		list.add(bundle.getString("hp3Filter"));
+		list.add(bundle.getString("verticalSobel"));
+		list.add(bundle.getString("grayScale"));
+		list.add(bundle.getString("userFilter"));
+		list.add(bundle.getString("randomFilter"));
+		
 		return list;
 	}
 
@@ -158,7 +176,7 @@ public class MainAppController {
 	@FXML
 	public void open() {
 		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Wybierz obrazek");
+		fileChooser.setTitle(bundle.getString("choosePicture"));
 		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("JPG", "*.jpg"),
 				new ExtensionFilter("PNG", "*.png"), new ExtensionFilter("JPEG", "*.jpeg"));
 
@@ -208,17 +226,17 @@ public class MainAppController {
 					System.out.println(ex.getMessage());
 				}
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("Zapis obrazla");
+				alert.setTitle(bundle.getString("savingPicture"));
 				alert.setHeaderText(null);
-				alert.setContentText("Obrazek zosta³ poprawmie zapisany");
+				alert.setContentText(bundle.getString("successfulSave"));
 
 				alert.showAndWait();
 			}
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("B³¹d zapisu");
+			alert.setTitle(bundle.getString("savingError"));
 			alert.setHeaderText(null);
-			alert.setContentText("Obrazek do edycji nie zosta³ wygenerowany");
+			alert.setContentText(bundle.getString("notSuccessfulSave"));
 
 			alert.showAndWait();
 		}
@@ -229,7 +247,7 @@ public class MainAppController {
 	public void saveAs() {
 		if (edited.getImage() != null) {
 			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Zapisz obrazek");
+			fileChooser.setTitle(bundle.getString("savePicture"));
 			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("JPG", "*.jpg"),
 					new ExtensionFilter("PNG", "*.png"), new ExtensionFilter("JPEG", "*.jpeg"));
 
@@ -243,9 +261,9 @@ public class MainAppController {
 			}
 		} else {
 			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("B³¹d zapisu");
+			alert.setTitle(bundle.getString("savingError"));
 			alert.setHeaderText(null);
-			alert.setContentText("Obrazek do edycji nie zosta³ wygenerowany");
+			alert.setContentText(bundle.getString("notSuccessfulSave"));
 
 			alert.showAndWait();
 		}
@@ -254,9 +272,9 @@ public class MainAppController {
 	@FXML
 	public void exit() {
 		Alert alert = new Alert(AlertType.INFORMATION, null, ButtonType.OK, ButtonType.NO);
-		alert.setTitle("Wyjœcie");
+		alert.setTitle(bundle.getString("exit"));
 		alert.setHeaderText(null);
-		alert.setContentText("Wyjœæ z aplikacji?");
+		alert.setContentText(bundle.getString("exitStatement"));
 
 		alert.showAndWait();
 
@@ -433,6 +451,7 @@ public class MainAppController {
 		algorithm.getSelectionModel().select(4);
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/pl/imageManipulator/resources/UserMaskPanel.fxml"));
+		loader.setResources(bundle);
 		AnchorPane pane = loader.load();
 
 		Image icon = new Image("/pl/imageManipulator/resources/images/appIcon.png");
@@ -458,12 +477,9 @@ public class MainAppController {
 	@FXML
 	public void help() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Pomoc");
+		alert.setTitle(bundle.getString("help"));
 		alert.setHeaderText(null);
-		alert.setContentText(
-				"Program do przetwarzania obrazów\nAby przetworzyæ obraz najpierw nale¿y go wczytaæ. Nastêpnie nale¿y dobraæ ¿¹dane ustawienia"
-						+ " i nacisn¹æ przycisk \"Przetwarzaj\".\nNie wszystkie opcje w programie s¹ od razu dostêpne\nPo w³¹czeniu ró¿d¿ki i naciœniêciu na obrazek"
-						+ " automatycznie zostanie przetworzony obrazek");
+		alert.setContentText(bundle.getString("helpAlert"));
 
 		alert.showAndWait();
 	}
@@ -471,9 +487,9 @@ public class MainAppController {
 	@FXML
 	public void about() {
 		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("O programie");
+		alert.setTitle(bundle.getString("about"));
 		alert.setHeaderText(null);
-		alert.setContentText("Program do przetwarzania obrazów\nMateusz Œliwa 2018");
+		alert.setContentText(bundle.getString("author"));
 
 		alert.showAndWait();
 	}
@@ -547,7 +563,7 @@ public class MainAppController {
 					int x = (int) event.getX();
 					int y = (int) event.getY();
 
-					wandPoint.setText("Wybrany punkt: " + x + ", " + y);
+					wandPoint.setText(bundle.getString("selectedPoint") + " " + x + ", " + y);
 					alg.setWandPosition(x, y);
 					try {
 						process();
@@ -556,9 +572,9 @@ public class MainAppController {
 					}
 				} else {
 					Alert alert = new Alert(AlertType.WARNING);
-					alert.setTitle("B³¹d");
+					alert.setTitle(bundle.getString("error"));
 					alert.setHeaderText(null);
-					alert.setContentText("Nie zosta³a w³¹czona ró¿d¿ka, aby pobraæ punkt obrazka, w³¹cz ró¿d¿kê");
+					alert.setContentText(bundle.getString("wandStatement"));
 					alert.showAndWait();
 				}
 
@@ -625,6 +641,20 @@ public class MainAppController {
 	}
 
 	@FXML
+	public void selectPolish() throws IOException {
+		main.setStage(new Locale("pl", "PL"));
+		polish.setSelected(true);
+		english.setSelected(false);
+	}
+	
+	@FXML
+	public void selectEnglish() throws IOException {
+		main.setStage(new Locale("en", "EN"));
+		polish.setSelected(false);
+		english.setSelected(true);
+	}
+	
+	@FXML
 	public void process() throws Exception {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/pl/imageManipulator/resources/LoadingPanel.fxml"));
 		AnchorPane pane = loader.load();
@@ -680,4 +710,16 @@ public class MainAppController {
 		this.userMask = userMask;
 	}
 
+	public void setMain(Main main) {
+		this.main = main;
+	}
+
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
+
+	public void setBundle(ResourceBundle bundle) {
+		this.bundle = bundle;
+	}
+	
 }

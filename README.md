@@ -1,9 +1,10 @@
-#[PL]
-#Prosta aplikacja do przetwarzania obrazów
+# [PL]
+# Prosta aplikacja do przetwarzania obrazów
 
-##Dostępnych jest kilka predefiniowanych filtrów, możliwość dodawania własnego, włączanie / wyłączenie różdżki, zmiana jej mocy.
+## Dostępnych jest kilka predefiniowanych filtrów, możliwość dodawania własnego, włączanie / wyłączenie różdżki, zmiana jej mocy.
 
 ![My image](ImageManipulator/screens/mainPL.jpg)
+<Enter>
 *Aplikacja przed załadowaniem obrazka*
 
 ![My image](ImageManipulator/screens/main2PL.jpg)
